@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 const MotionBackground = () => {
   const reduceMotion = useReducedMotion();
@@ -8,6 +13,11 @@ const MotionBackground = () => {
 
   const yBeam = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -180]);
   const yHalo = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 120]);
+  const rotateGrid = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, reduceMotion ? 0 : 6],
+  );
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -32,6 +42,33 @@ const MotionBackground = () => {
         style={{ y: yHalo }}
         className="absolute right-[-12rem] top-[20%] h-[26rem] w-[26rem] rounded-full bg-primary/10 blur-3xl"
       />
+
+      <motion.div
+        animate={
+          reduceMotion
+            ? undefined
+            : { x: [0, 32, -18, 0], opacity: [0.2, 0.45, 0.22, 0.2] }
+        }
+        transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        className="absolute left-[-10%] top-[8%] h-px w-[55%] rotate-[12deg] bg-gradient-to-r from-transparent via-primary/65 to-transparent"
+      />
+      <motion.div
+        animate={
+          reduceMotion
+            ? undefined
+            : { x: [0, -28, 18, 0], opacity: [0.1, 0.3, 0.12, 0.1] }
+        }
+        transition={{ duration: 17, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        className="absolute right-[-12%] top-[52%] h-px w-[48%] -rotate-[14deg] bg-gradient-to-r from-transparent via-white/30 to-transparent"
+      />
+
+      <motion.div
+        style={{ rotate: rotateGrid }}
+        className="absolute inset-[-12%] opacity-[0.07]"
+      >
+        <div className="h-full w-full bg-[linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:90px_90px]" />
+      </motion.div>
+
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_14%,transparent_84%,rgba(255,255,255,0.03))]" />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] opacity-50" />
 
@@ -44,6 +81,8 @@ const MotionBackground = () => {
         transition={{ duration: 18, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
         className="absolute left-[-14rem] top-[35%] h-[28rem] w-[28rem] rounded-full border border-white/6 bg-white/[0.03] blur-3xl"
       />
+
+      <div className="noise-overlay absolute inset-0 opacity-[0.1]" />
 
       <div
         className="absolute inset-0 opacity-60 transition-[background] duration-300"

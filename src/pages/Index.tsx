@@ -8,10 +8,12 @@ import Footer from "@/components/Footer";
 import MotionBackground from "@/components/MotionBackground";
 import PageIntro from "@/components/PageIntro";
 import ScrollProgress from "@/components/ScrollProgress";
+import CustomCursor from "@/components/CustomCursor";
 
 const Index = () => (
   <>
     <ScrollProgress />
+    <CustomCursor />
     <PageIntro />
     <MotionBackground />
     <Header />

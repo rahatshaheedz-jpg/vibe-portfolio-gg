@@ -29,24 +29,24 @@ const Header = () => {
 
   return (
     <motion.header
-      initial={{ y: -24, opacity: 0 }}
+      initial={{ y: -18, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       className="fixed left-0 right-0 top-0 z-50"
     >
       <div className="section-padding pt-4">
         <div
-          className={`mx-auto flex h-16 items-center justify-between rounded-full border px-4 transition-all duration-400 md:h-[4.5rem] md:px-6 ${
+          className={`mx-auto flex h-15 items-center justify-between rounded-full border px-4 transition-all duration-400 md:h-[4.25rem] md:px-6 ${
             scrolled
-              ? "border-white/10 bg-black/55 shadow-[0_20px_60px_rgba(0,0,0,0.25)] backdrop-blur-2xl"
+              ? "border-white/10 bg-[#090b0e]/78 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-2xl"
               : "border-transparent bg-transparent"
           }`}
         >
           <button
             onClick={() => handleNav("#home")}
-            className="text-sm font-display font-semibold uppercase tracking-[0.24em] text-foreground transition-colors hover:text-primary"
+            className="text-[11px] font-display font-semibold uppercase tracking-[0.34em] text-foreground transition-colors hover:text-primary"
           >
-            Rahat
+            RBS
           </button>
 
           <nav className="hidden items-center gap-7 md:flex">
@@ -54,7 +54,7 @@ const Header = () => {
               <button
                 key={link.href}
                 onClick={() => handleNav(link.href)}
-                className="group relative text-xs uppercase tracking-[0.24em] text-white/65 transition-colors hover:text-white"
+                className="group relative text-[11px] uppercase tracking-[0.28em] text-white/60 transition-colors hover:text-white"
               >
                 {link.label}
                 <span className="absolute -bottom-2 left-1/2 h-px w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-full" />
@@ -80,16 +80,16 @@ const Header = () => {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.22 }}
             className="section-padding md:hidden"
           >
-            <div className="mt-3 rounded-[1.75rem] border border-white/10 bg-black/80 p-5 backdrop-blur-2xl">
+            <div className="mt-3 rounded-[1.75rem] border border-white/10 bg-[#090b0e]/92 p-5 backdrop-blur-2xl">
               <div className="flex flex-col gap-4">
                 {navLinks.map((link) => (
                   <button
                     key={link.href}
                     onClick={() => handleNav(link.href)}
-                    className="text-left text-sm uppercase tracking-[0.24em] text-white/75 transition-colors hover:text-primary"
+                    className="text-left text-sm uppercase tracking-[0.28em] text-white/70 transition-colors hover:text-primary"
                   >
                     {link.label}
                   </button>
