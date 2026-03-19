@@ -1,95 +1,96 @@
-import { useEffect, useState } from "react";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { Camera, Clapperboard, Gamepad2, Keyboard } from "lucide-react";
+
+const ambientObjects = [
+  {
+    Icon: Camera,
+    className: "left-[7%] top-[22%] hidden xl:flex",
+    duration: 18,
+    x: 10,
+    y: -12,
+    tone: "text-[#c8a35d]/45",
+  },
+  {
+    Icon: Keyboard,
+    className: "right-[9%] top-[26%] hidden lg:flex",
+    duration: 20,
+    x: -8,
+    y: 10,
+    tone: "text-primary/40",
+  },
+  {
+    Icon: Gamepad2,
+    className: "left-[10%] bottom-[16%] hidden lg:flex",
+    duration: 17,
+    x: 12,
+    y: 10,
+    tone: "text-primary/36",
+  },
+  {
+    Icon: Clapperboard,
+    className: "right-[7%] bottom-[22%] hidden xl:flex",
+    duration: 21,
+    x: -10,
+    y: -10,
+    tone: "text-[#c8a35d]/40",
+  },
+];
 
 const MotionBackground = () => {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const [pointer, setPointer] = useState({ x: 50, y: 18 });
 
-  const yBeam = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -180]);
-  const yHalo = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 120]);
-  const rotateGrid = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, reduceMotion ? 0 : 6],
-  );
-
-  useEffect(() => {
-    if (reduceMotion) return;
-
-    const handleMove = (event: MouseEvent) => {
-      const x = (event.clientX / window.innerWidth) * 100;
-      const y = (event.clientY / window.innerHeight) * 100;
-      setPointer({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, [reduceMotion]);
+  const yWarm = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : -90]);
+  const yCool = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 70]);
+  const yGrid = useTransform(scrollYProgress, [0, 1], [0, reduceMotion ? 0 : 20]);
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <motion.div
-        style={{ y: yBeam }}
-        className="absolute left-1/2 top-[-15%] h-[70rem] w-[42rem] -translate-x-1/2 bg-[radial-gradient(circle_at_top,rgba(255,214,102,0.16),transparent_38%)] opacity-80 blur-3xl"
-      />
-      <motion.div
-        style={{ y: yHalo }}
-        className="absolute right-[-12rem] top-[20%] h-[26rem] w-[26rem] rounded-full bg-primary/10 blur-3xl"
-      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,17,17,0.96),rgba(7,8,9,1)_42%,rgba(4,5,7,1))]" />
 
       <motion.div
-        animate={
-          reduceMotion
-            ? undefined
-            : { x: [0, 32, -18, 0], opacity: [0.2, 0.45, 0.22, 0.2] }
-        }
-        transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        className="absolute left-[-10%] top-[8%] h-px w-[55%] rotate-[12deg] bg-gradient-to-r from-transparent via-primary/65 to-transparent"
+        style={{ y: yWarm }}
+        className="absolute left-[-10%] top-[-8%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(circle,rgba(195,154,84,0.18),rgba(195,154,84,0.06)_40%,transparent_70%)] blur-3xl"
       />
       <motion.div
-        animate={
-          reduceMotion
-            ? undefined
-            : { x: [0, -28, 18, 0], opacity: [0.1, 0.3, 0.12, 0.1] }
-        }
-        transition={{ duration: 17, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        className="absolute right-[-12%] top-[52%] h-px w-[48%] -rotate-[14deg] bg-gradient-to-r from-transparent via-white/30 to-transparent"
+        style={{ y: yCool }}
+        className="absolute right-[-12%] top-[10%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(126,178,214,0.12),rgba(126,178,214,0.04)_42%,transparent_70%)] blur-3xl"
       />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.08)_62%,rgba(0,0,0,0.24)_100%)]" />
 
       <motion.div
-        style={{ rotate: rotateGrid }}
-        className="absolute inset-[-12%] opacity-[0.07]"
+        style={{ y: yGrid }}
+        className="absolute inset-[-8%] opacity-[0.035]"
       >
-        <div className="h-full w-full bg-[linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.14)_1px,transparent_1px)] bg-[size:90px_90px]" />
+        <div className="h-full w-full bg-[linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:110px_110px]" />
       </motion.div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_14%,transparent_84%,rgba(255,255,255,0.03))]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] opacity-50" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),transparent_18%,transparent_84%,rgba(255,255,255,0.025))]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.02)_50%,transparent)] opacity-40" />
+      <div className="noise-overlay absolute inset-0 opacity-[0.06]" />
 
-      <motion.div
-        animate={
-          reduceMotion
-            ? undefined
-            : { rotate: [0, 4, -3, 0], scale: [1, 1.08, 0.98, 1] }
-        }
-        transition={{ duration: 18, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        className="absolute left-[-14rem] top-[35%] h-[28rem] w-[28rem] rounded-full border border-white/6 bg-white/[0.03] blur-3xl"
-      />
-
-      <div className="noise-overlay absolute inset-0 opacity-[0.1]" />
-
-      <div
-        className="absolute inset-0 opacity-60 transition-[background] duration-300"
-        style={{
-          background: `radial-gradient(circle at ${pointer.x}% ${pointer.y}%, rgba(255, 245, 198, 0.12), transparent 18%)`,
-        }}
-      />
+      {ambientObjects.map(({ Icon, className, duration, x, y, tone }, index) => (
+        <motion.div
+          key={index}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  x: [0, x, -x / 2, 0],
+                  y: [0, y, -y / 2, 0],
+                  opacity: [0.18, 0.26, 0.18],
+                }
+          }
+          transition={{
+            duration,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
+          className={`ambient-icon absolute items-center justify-center rounded-full p-3 ${className}`}
+        >
+          <Icon size={14} className={tone} />
+        </motion.div>
+      ))}
     </div>
   );
 };
