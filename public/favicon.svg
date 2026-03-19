@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="gold" x1="7" y1="7" x2="57" y2="57" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A96810"/>
+      <stop offset="0.28" stop-color="#F5C84F"/>
+      <stop offset="0.52" stop-color="#FFF2B2"/>
+      <stop offset="0.74" stop-color="#E1A92C"/>
+      <stop offset="1" stop-color="#8B560C"/>
+    </linearGradient>
+    <linearGradient id="flare" x1="12" y1="43" x2="56" y2="22" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F0B22B"/>
+      <stop offset="0.45" stop-color="#FFF2B8"/>
+      <stop offset="1" stop-color="#C17A12"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="64" height="64" rx="14" fill="#080808"/>
+  <path
+    d="M15 10h18.5c10.8 0 17.5 5.8 17.5 15.2 0 6.7-3.5 11.5-9.8 13.8L53 54H40.8L30.2 40.8H25V54H15V10Zm10 8.7v13.4h8.1c5 0 8-2.3 8-6.7 0-4.3-3-6.7-8-6.7H25Z"
+    fill="url(#gold)"
+  />
+  <path
+    d="M9.2 45.6c9.1-8.3 19.9-13.2 33.8-16.2 3.4-.7 7-1.3 11-1.8-6.8 2.8-12.5 5.5-17.2 8.2-8.1 4.5-15.2 9.5-21.4 15.3-2.5 2.3-5.7 1.5-6.2-1.1Z"
+    fill="url(#flare)"
+    filter="url(#glow)"
+  />
+  <circle cx="53.4" cy="27.6" r="2.2" fill="#FFF6C7" filter="url(#glow)"/>
+</svg>
